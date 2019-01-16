@@ -1,0 +1,47 @@
+server:
+    port: 8080
+
+mybatis:
+    config-location: classpath:mybatis/mybatis-config.xml
+    mapper-locations: classpath:mybatis/mapper/*.xml,classpath:mybatis/mapper/**/*.xml
+
+spring:
+    profiles:
+        active: #spring.profiles.active#
+    jackson:
+        serialization.write_dates_as_timestamps: false
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        url: jdbc:mysql://127.0.0.1:3306/smartwater?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password: password1
+        hikari:
+            data-source-properties:
+                cachePrepStmts: true
+                prepStmtCacheSize: 250
+                prepStmtCacheSqlLimit: 2048
+                useServerPrepStmts: true
+
+security:
+    basic:
+        enabled: false
+    oauth2:
+        resource:
+            filter-order: 3
+
+logging:
+    level:
+        ROOT: DEBUG
+
+oauth2:
+    key-store:
+        name: keystore.jks
+        password: password
+        alias: selfsigned
+    web-client-configuration:
+        # Access Token is valid for 30 mins
+        access-token-validity-in-seconds: 180000
+        # Refresh Token is valid for 7 days
+        refresh-token-validity-in-seconds-for-remember-me: 604800
+        client-id: web_app
+        secret: changeit

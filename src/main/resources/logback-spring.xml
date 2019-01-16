@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true">
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property name="LOG_HOME" value="/var/log/template-single-easy"></property>
+    <property name="APP_NAME" value="template-single-easy"></property>
+
+    <appender name="FILE_SYS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_HOME}/${APP_NAME}.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <charset>utf-8</charset>
+            <Pattern>%d{yyyy/MM/dd-HH:mm:ss} [%thread] %-5level %logger - %msg%n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.company.smartwater" level="#logback.loglevel#"/>
+    <logger name="com.sun" level="WARN"/>
+    <logger name="com.zaxxer" level="WARN"/>
+    <logger name="org.apache" level="WARN"/>
+    <logger name="org.springframework" level="WARN"/>
+    <logger name="org.springframework.web" level="WARN"/>
+    <logger name="springfox" level="WARN"/>
+    <logger name="javax.xml.bind" level="WARN"/>
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
+        <resetJUL>true</resetJUL>
+    </contextListener>
+
+    <root level="#logback.loglevel#">
+        <appender-ref ref="FILE_SYS"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>
